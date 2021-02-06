@@ -19,7 +19,6 @@ public class Main {
 
         HashSet[] pizzas = new HashSet[n];
 
-
         for (int i = 0; i < n; ++i) {
             int count = scanner.nextInt();
             pizzas[i] = new HashSet<String>();
@@ -38,11 +37,85 @@ public class Main {
                 Map<int[], Set<String>> order = new HashMap<>();
 
                 for (int j = 0; j < n - 1; ++j) {
-                    Set<String> ingredients = new HashSet<>(pizzas[j]);
+                    Set<String> ingredients = new HashSet<>();
 
                     for (int k = j + 1; k < n; ++k) {
+                        // Clear the previous ingredients present there
+                        ingredients.clear();
+                        // Combine two types of pizzas
+                        ingredients.addAll(pizzas[j]);
                         ingredients.addAll(pizzas[k]);
-                        order.put(new int[]{j, k}, ingredients);
+
+                        if (ingredients.size() > max) { // Check if this type of order contains most number of ingredients
+                            // Set the max size if so
+                            max = ingredients.size();
+                            // Clear the order object to ensure single entry
+                            order.clear();
+                            // Add new entry with a new HashSet to avoid object reference
+                            order.put(new int[]{j, k}, new HashSet<>(ingredients));
+                        }
+                    }
+                }
+
+                order.forEach((ints, strings) -> System.out.println(Arrays.toString(ints) + " : " + strings));
+            } else { // Otherwise cancel
+                break;
+            }
+        }
+        for (int i = 0; i < t2; ++i) {
+            if (remaining >= 2) { // Check if enough pizzas are there to deliver to a 2 members team
+                int max = 0;
+                Map<int[], Set<String>> order = new HashMap<>();
+
+                for (int j = 0; j < n - 1; ++j) {
+                    Set<String> ingredients = new HashSet<>();
+
+                    for (int k = j + 1; k < n; ++k) {
+                        // Clear the previous ingredients present there
+                        ingredients.clear();
+                        // Combine two types of pizzas
+                        ingredients.addAll(pizzas[j]);
+                        ingredients.addAll(pizzas[k]);
+
+                        if (ingredients.size() > max) { // Check if this type of order contains most number of ingredients
+                            // Set the max size if so
+                            max = ingredients.size();
+                            // Clear the order object to ensure single entry
+                            order.clear();
+                            // Add new entry with a new HashSet to avoid object reference
+                            order.put(new int[]{j, k}, new HashSet<>(ingredients));
+                        }
+                    }
+                }
+
+                order.forEach((ints, strings) -> System.out.println(Arrays.toString(ints) + " : " + strings));
+            } else { // Otherwise cancel
+                break;
+            }
+        }
+        for (int i = 0; i < t2; ++i) {
+            if (remaining >= 2) { // Check if enough pizzas are there to deliver to a 2 members team
+                int max = 0;
+                Map<int[], Set<String>> order = new HashMap<>();
+
+                for (int j = 0; j < n - 1; ++j) {
+                    Set<String> ingredients = new HashSet<>();
+
+                    for (int k = j + 1; k < n; ++k) {
+                        // Clear the previous ingredients present there
+                        ingredients.clear();
+                        // Combine two types of pizzas
+                        ingredients.addAll(pizzas[j]);
+                        ingredients.addAll(pizzas[k]);
+
+                        if (ingredients.size() > max) { // Check if this type of order contains most number of ingredients
+                            // Set the max size if so
+                            max = ingredients.size();
+                            // Clear the order object to ensure single entry
+                            order.clear();
+                            // Add new entry with a new HashSet to avoid object reference
+                            order.put(new int[]{j, k}, new HashSet<>(ingredients));
+                        }
                     }
                 }
 
