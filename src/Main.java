@@ -29,6 +29,7 @@ public class Main {
         }
 
         int remaining = n;
+        Set<int[]> orders = new HashSet<>();
         Set<Integer> delivered = new HashSet<>();
 
         for (int i = 0; i < t2; ++i) {
@@ -57,72 +58,24 @@ public class Main {
                     }
                 }
 
-                order.forEach((ints, strings) -> System.out.println(Arrays.toString(ints) + " : " + strings));
-            } else { // Otherwise cancel
-                break;
-            }
-        }
-        for (int i = 0; i < t2; ++i) {
-            if (remaining >= 2) { // Check if enough pizzas are there to deliver to a 2 members team
-                int max = 0;
-                Map<int[], Set<String>> order = new HashMap<>();
-
-                for (int j = 0; j < n - 1; ++j) {
-                    Set<String> ingredients = new HashSet<>();
-
-                    for (int k = j + 1; k < n; ++k) {
-                        // Clear the previous ingredients present there
-                        ingredients.clear();
-                        // Combine two types of pizzas
-                        ingredients.addAll(pizzas[j]);
-                        ingredients.addAll(pizzas[k]);
-
-                        if (ingredients.size() > max) { // Check if this type of order contains most number of ingredients
-                            // Set the max size if so
-                            max = ingredients.size();
-                            // Clear the order object to ensure single entry
-                            order.clear();
-                            // Add new entry with a new HashSet to avoid object reference
-                            order.put(new int[]{j, k}, new HashSet<>(ingredients));
-                        }
+                // Add order data
+                order.forEach((ints, strings) -> {
+                    // Add pizzas indices to delivered set
+                    for (int anInt : ints) {
+                        delivered.add(anInt);
                     }
-                }
 
-                order.forEach((ints, strings) -> System.out.println(Arrays.toString(ints) + " : " + strings));
+                    // Add delivered pizzas indices
+                    orders.add(ints);
+                });
+
+                // Reduce remaining
+                remaining -= 2;
             } else { // Otherwise cancel
                 break;
             }
         }
-        for (int i = 0; i < t2; ++i) {
-            if (remaining >= 2) { // Check if enough pizzas are there to deliver to a 2 members team
-                int max = 0;
-                Map<int[], Set<String>> order = new HashMap<>();
 
-                for (int j = 0; j < n - 1; ++j) {
-                    Set<String> ingredients = new HashSet<>();
-
-                    for (int k = j + 1; k < n; ++k) {
-                        // Clear the previous ingredients present there
-                        ingredients.clear();
-                        // Combine two types of pizzas
-                        ingredients.addAll(pizzas[j]);
-                        ingredients.addAll(pizzas[k]);
-
-                        if (ingredients.size() > max) { // Check if this type of order contains most number of ingredients
-                            // Set the max size if so
-                            max = ingredients.size();
-                            // Clear the order object to ensure single entry
-                            order.clear();
-                            // Add new entry with a new HashSet to avoid object reference
-                            order.put(new int[]{j, k}, new HashSet<>(ingredients));
-                        }
-                    }
-                }
-
-                order.forEach((ints, strings) -> System.out.println(Arrays.toString(ints) + " : " + strings));
-            } else { // Otherwise cancel
-                break;
-            }
-        }
+        orders.forEach(order -> System.out.println(Arrays.toString(order)));
     }
 }
