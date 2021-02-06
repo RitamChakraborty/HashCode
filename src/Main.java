@@ -1,8 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Main {
@@ -10,25 +9,25 @@ public class Main {
         String fileName = "a_example";
         Scanner scanner = new Scanner(new BufferedReader(new FileReader(fileName)));
         int n;
-        int team2;
-        int team3;
-        int team4;
-        List<List<String>> pizzas = new ArrayList<>();
+        int t2;
+        int t3;
+        int t4;
 
         n = scanner.nextInt();
-        team2 = scanner.nextInt();
-        team3 = scanner.nextInt();
-        team4 = scanner.nextInt();
+        t2 = scanner.nextInt();
+        t3 = scanner.nextInt();
+        t4 = scanner.nextInt();
+
+        HashSet[] pizzas = new HashSet[n];
+
 
         for (int i = 0; i < n; ++i) {
             int count = scanner.nextInt();
-            List<String> ingredients = new ArrayList<>();
+            pizzas[i] = new HashSet<String>();
 
             for (int j = 0; j < count; ++j) {
-                ingredients.add(scanner.next());
+                pizzas[i].add(scanner.next());
             }
-
-            pizzas.add(ingredients);
         }
     }
 }
